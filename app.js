@@ -3,6 +3,9 @@ const app = express();
 const path = require('path');
 const studentRoutes = require('./routes/students');
 
+//styles folder
+app.use(express.static(path.join(__dirname, 'styles')))
+
 // Middleware for parsing request bodies and serving static files
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

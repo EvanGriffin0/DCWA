@@ -3,15 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <title>Students</title>
+  <link rel="stylesheet" href="/students.css">
 </head>
 <body>
   <h1>Students</h1>
-  <ul>
-    <% students.forEach(student => { %>
-      <li><%= student.sid %> - <%= student.name %> - <%= student.age %></li>
-    <% }); %>
-  </ul>
-  <a href="/students/add">Add Student</a>
-  <a href="/">Back to Home</a>
+  <a href="/students/add">Add Student</a> | <a href="/">Home</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% students.forEach(student => { %>
+        <tr>
+          <td><%= student.sid %></td>
+          <td><%= student.name %></td>
+          <td><%= student.age %></td>
+          <td><a href="/students/edit/<%= student.sid %>">Update</a></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
 </body>
 </html>

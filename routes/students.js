@@ -46,5 +46,42 @@ router.get('/add', (req, res) => {
   res.render('addStudent', { error: null, student: {} });
 });
 
+// Render Edit Student Form
+router.get('/edit/:sid', async (req, res) => {
+  const { sid } = req.params;
+  try {
+    const [students] = await pool.query('SELECT * FROM student WHERE sid = ?', [sid]);
+    if (students.length === 0) {
+      return res.status(404).send('Student not found');
+    }
+    res.render('editStudent', { error: null, student: students[0] });
+  } catch (error) {
+    console.error('Error fetching student:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Handle Edit Student Form Submission
+router.post('/edit/:sid', async (req, res) => {
+  const { sid } = req.params;
+  const { name, age } = req.body;
+
+  // Input Validation
+  const errors = [];
+  if (!name || name.length < 2) errors.push('Name should be at least 2 characters');
+  if (!age || age < 18) errors.push('Age should be at least 18');
+
+  if (errors.length > 0) {
+    return res.render('editStudent', { error: errors.join(', '), student: { sid, name, age } });
+  }
+
+  try {
+    await pool.query('UPDATE student SET name = ?, age = ? WHERE sid = ?', [name, age, sid]);
+    res.redirect('/students');
+  } catch (error) {
+    console.error('Error updating student:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 module.exports = router;
