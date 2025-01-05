@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lecturers</title>
+  <link rel="stylesheet" href="/students.css">
+</head>
+<body>
+  <h1>Lecturers</h1>
+  <a href="/">Home</a> | <a href="/students">Students</a> | <a href="/grades">Grades</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Lecturer ID</th>
+        <th>Name</th>
+        <th>Department</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% lecturers.forEach(lecturer => { %>
+          <tr>
+            <td><%= lecturer._id %></td>
+            <td><%= lecturer.name %></td>
+            <td><%= lecturer.did %></td>
+            <td>
+              <a href="/lecturers/delete/<%= lecturer._id %>" onclick="return confirm('Are you sure you want to delete this lecturer?')">Delete</a>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>  
+      <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+      <% } %>   
+  </table>
+</body>
+</html>

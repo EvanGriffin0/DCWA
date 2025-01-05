@@ -24,6 +24,9 @@ app.get('/', (req, res) => {
 const gradeRoutes = require('./routes/grades');
 app.use('/grades', gradeRoutes);
 
+const lecturersRouter = require('./routes/lecturers'); 
+app.use('/lecturers', lecturersRouter);
+
 // Start the server
 const PORT = 3004;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
