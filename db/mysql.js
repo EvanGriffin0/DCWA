@@ -7,4 +7,6 @@ const pool = mysql.createPool({
   database: 'proj2024mysql', 
 });
 
+
 module.exports = pool;
+
