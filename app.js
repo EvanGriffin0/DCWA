@@ -21,3 +21,9 @@ app.set('view engine', 'ejs');
 // Set the views directory 
 const path = require('path');
 app.set('views', path.join(__dirname, 'views'));
+
+// Define the home route
+app.get('/', (req, res) => {
+    res.render('home');
+  });
+  
